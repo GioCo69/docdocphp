@@ -1,0 +1,12 @@
+{
+    "name": "gioco69/docdocphp",
+    "description": "Generatore HTML da Markdown con layout compatibile phpDocumentor",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "DocDoc\\": "src/"
+        }
+    },
+    "require": {}
+}
