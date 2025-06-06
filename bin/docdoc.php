@@ -1,62 +1,90 @@
 #!/usr/bin/env php
-<?php
-// SCRIPT PHP
+<?php //+ RUNNER SCRIPT PHP
+
+//-- INIT
 require __DIR__ . '/../vendor/autoload.php';
 use DocDoc\Engine\MarkdownDocGenerator;
+use DocDoc\Engine\Lang;
+use DocDoc\Engine\Log;
 
-// Script example.php
-$shortopts = "i:";
+/**
+ * wrapper per metodo Log::message
+ * @param string $message
+ * @param string $level
+ * @return void
+ */
+function wlog(string $message, string $level = 'info'): void {
+    Log::message($message, $level);
+}
+
+//-- SHORT PARAM
+$shortopts = "i:";   // Required value
 $shortopts .= "o:";  // Required value
-$shortopts .= "vh";  // Required value
-// $shortopts .= "abc"; // These options do not accept values
+$shortopts .= "vh";  // Optional value
+$shortopts .= "l:";  // Required value
 
+//-- LONG PARAM
 $longopts = array(
     "input:",     // Required value
     "output:",    // Required value
     "verbose::",  // Optional value
-    "help"        // No value
+    "help",       // No value (set or no)
+    "lang:"       // No value (set or no)
 );
 
-// prende i parametri da linea di comando
+//-- GET ARGUMENTS
 $options = getopt($shortopts, $longopts) ?? [];
 
-// --- HELP
-if (isset($options['h']) || isset($options['help'])) {
-    echo <<<HELP
-DocDoc - Generatore HTML da Markdown compatibile con phpDocumentor
-
-USO:
-  ./bin/docdoc.php --input=DIR --output=DIR [--verbose]
-
-OPZIONI:
-  -i, --input       Cartella di input contenente i file .md (default: tests)
-  -o, --output      Cartella di output dove salvare gli .html (default: docs/output)
-  -v, --verbose     Attiva log dettagliato (debug) a video
-  -h, --help        Mostra questo help e termina
-
-ESEMPIO:
-  ./bin/docdoc.php --input=docSEA.wiki --output=docs/docSEA.wiki --verbose
-
-HELP;
-    exit(0);
-}
-
-// --- PARAMETRI CLI
+// --- LOAD CLI PARAM
 $input = $options['input'] ?? $options['i'] ?? 'tests';
 $output = $options['output'] ?? $options['o'] ?? 'docs/output';
 $verbose = isset($options['verbose']) || isset($options['v']);
-
 if ($verbose) {
-    echo "➡️  Parametri:\n";
+    echo "➡️  PARAMETER:\n";
     echo "   input  = $input\n";
     echo "   output = $output\n";
     echo "   verbose= " . ($verbose ? 'true' : 'false') . "\n\n";
 }
 
-// controlla che il direttorio sorgente esista
-if (!is_dir($input)) {
-    fwrite(STDERR, "\033[31m❌ Errore: la directory di input '$input' non esiste.\033[0m\n");
+//-- LANG
+$lang = $options['lang'] ?? $options['l'] ?? 'it';
+if (!in_array($lang, ['it', 'en'])) {
+    $str = "❌ Language '{$lang}' not supported.";
+    $lvl = "error";
+    wlog(sprintf($str, $lang) . "\n", $lvl);
     exit(1);
 }
-$generator = new MarkdownDocGenerator($input, $output, $verbose);
+
+//-- LOAD LANG MESSAGES
+$messages = Lang::messages($lang);
+
+// --- HELP
+if (isset($options['h']) || isset($options['help'])) {
+    echo $messages['help'] . "\n";
+    exit(0);
+}
+
+// --- CHECK IF EXIST INP DIR
+if (!is_dir($input)) {
+    wlog(sprintf($messages['no_input_dir']['str'], $input) . "\n", $messages['no_input_dir']['lvl']);
+    exit(1);
+}
+
+// --- SEARCH MD
+// check se contiene almeno un file .md
+$hasMd = false;
+$rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($input));
+foreach ($rii as $file) {
+    if (!$file->isDir() && pathinfo($file, PATHINFO_EXTENSION) === 'md') {
+        $hasMd = true;
+        break;
+    }
+}
+if (!$hasMd) {
+    wlog(sprintf($messages['no_md_found']['str'], $input) . "\n", $messages['no_md_found']['lvl']);
+    exit(1);
+}
+
+//+ CALL MD GEN
+$generator = new MarkdownDocGenerator($input, $output, $verbose, $messages);
 $generator->run();

@@ -9,21 +9,30 @@ Supporta input ricorsivo, layout personalizzato, CLI con opzioni e log a colori.
 ./bin/docdoc.php --input=docSEA.wiki --output=docs/docSEA.wiki --verbose
 ```
 
+## TODO
+
+- la riga 93 (ora commentata) in MarkdownDocGenerator non gestisce correttamente il base path per il template
+- la formattazione della prima voce di menu che ha sottocartelle, rimane visivamente diversa dalle altre (uno schifo)
+- il base path del primo gruppo di voci corrisponde a <base href="../../../">
+- la TOC è un disastro, non contiene affatto i capitoli e i sottocapitoli del contenuto
+- è possibile che la ripetizione della voce Home sia rimasta nelle pagine diverse da quelle in home
+
 ## Help
 ```bash
-DocDoc - Generatore HTML da Markdown compatibile con phpDocumentor
+DocDoc - Markdown to HTML Generator with phpDocumentor-compatible layout
 
-USO:
-  ./bin/docdoc.php --input=DIR --output=DIR [--verbose]
+USAGE:
+  ./bin/docdoc.php --input=DIR --output=DIR [--verbose] [--lang=en]
 
-OPZIONI:
-  -i, --input       Cartella di input contenente i file .md (default: tests)
-  -o, --output      Cartella di output dove salvare gli .html (default: docs/output)
-  -v, --verbose     Attiva log dettagliato (debug) a video
-  -h, --help        Mostra questo help e termina
+OPTIONS:
+  -i, --input       Input directory with .md files (default: tests)
+  -o, --output      Output directory for HTML (default: docs/output)
+  -v, --verbose     Enable detailed log (debug)
+  -l, --lang        Language (it/en) [default: it]
+  -h, --help        Show this help message
 
-ESEMPIO:
-  ./bin/docdoc.php --input=docSEA.wiki --output=docs/docSEA.wiki --verbose
+EXAMPLE:
+  ./bin/docdoc.php --input=doc.wiki --output=docs/doc.wiki --verbose --lang=en
 
 ```
 
