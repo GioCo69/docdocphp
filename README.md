@@ -6,6 +6,9 @@ Supporta input ricorsivo, layout personalizzato, CLI con opzioni e log a colori.
 Pensato come estensione della documentazione generata da phpDocumentor con tema default
 Testato con phpDocumentor ver. 3.7
 
+Pensato per generare documentazione MD della wiki GitHub in modo da averla identica
+come fosse una estensione delle documentazione di phpDocumentor ma descrittiva del progetto.
+
 ⚠️ ATTENZIONE !
 
 Dato che il layout viene preso direttamente da quello della documentazione già generata
