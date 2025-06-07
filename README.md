@@ -11,7 +11,7 @@ Supporta input ricorsivo, layout personalizzato, CLI con opzioni e log a colori.
 
 ## TODO
 
-- la riga 93 (ora commentata) in MarkdownDocGenerator non gestisce correttamente il base path per il template
+- [x] la riga 93 (ora commentata) in MarkdownDocGenerator non gestisce correttamente il base path per il template
 - la formattazione della prima voce di menu che ha sottocartelle, rimane visivamente diversa dalle altre (uno schifo)
 - il base path del primo gruppo di voci corrisponde a <base href="../../../">
 - la TOC è un disastro, non contiene affatto i capitoli e i sottocapitoli del contenuto

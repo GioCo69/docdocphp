@@ -5,7 +5,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 use DocDoc\Engine\MarkdownDocGenerator;
 use DocDoc\Engine\Lang;
-use DocDoc\Engine\Log;
+use DocDoc\Engine\Formatter;
 
 /**
  * wrapper per metodo Log::message
@@ -13,15 +13,16 @@ use DocDoc\Engine\Log;
  * @param string $level
  * @return void
  */
-function wlog(string $message, string $level = 'info'): void {
-    Log::message($message, $level);
-}
+// function wlog(string $message, string $level = 'info'): void {
+//     Log::message($message, $level);
+// }
 
 //-- SHORT PARAM
 $shortopts = "i:";   // Required value
 $shortopts .= "o:";  // Required value
-$shortopts .= "vh";  // Optional value
+$shortopts .= "vh"; // Optional value
 $shortopts .= "l:";  // Required value
+$shortopts .= "s:";  // Required value
 
 //-- LONG PARAM
 $longopts = array(
@@ -29,7 +30,8 @@ $longopts = array(
     "output:",    // Required value
     "verbose::",  // Optional value
     "help",       // No value (set or no)
-    "lang:"       // No value (set or no)
+    "lang::",     // Optional value
+    "sort::"      // Optional value
 );
 
 //-- GET ARGUMENTS
@@ -39,23 +41,28 @@ $options = getopt($shortopts, $longopts) ?? [];
 $input = $options['input'] ?? $options['i'] ?? 'tests';
 $output = $options['output'] ?? $options['o'] ?? 'docs/output';
 $verbose = isset($options['verbose']) || isset($options['v']);
-if ($verbose) {
-    echo "➡️  PARAMETER:\n";
-    echo "   input  = $input\n";
-    echo "   output = $output\n";
-    echo "   verbose= " . ($verbose ? 'true' : 'false') . "\n\n";
-}
-
-//-- LANG
 $lang = $options['lang'] ?? $options['l'] ?? 'it';
 if (!in_array($lang, ['it', 'en'])) {
-    $str = "❌ Language '{$lang}' not supported.";
-    $lvl = "error";
-    wlog(sprintf($str, $lang) . "\n", $lvl);
+    Formatter::message("[ERROR] Language '{$lang}' not supported");
+    exit(1);
+}
+$sort = $options['sort'] ?? $options['s'] ?? 'asc';
+if (!in_array($sort, ['asc', 'desc'])) {
+    Formatter::message("[ERROR] Sort '{$sort}' not supported.");
     exit(1);
 }
 
-//-- LOAD LANG MESSAGES
+// Special log verbose
+if ($verbose) {
+    echo "➡️  PARAMETER:\n";
+    echo "   input   = $input\n";
+    echo "   output  = $output\n";
+    echo "   verbose = " . ($verbose ? 'true' : 'false') . "\n";
+    echo "   lang    = $lang\n";
+    echo "   sort    = $sort\n";
+}
+
+//-- LOAD MESSAGES SERVICE
 $messages = Lang::messages($lang);
 
 // --- HELP
@@ -66,7 +73,7 @@ if (isset($options['h']) || isset($options['help'])) {
 
 // --- CHECK IF EXIST INP DIR
 if (!is_dir($input)) {
-    wlog(sprintf($messages['no_input_dir']['str'], $input) . "\n", $messages['no_input_dir']['lvl']);
+    echo Formatter::sprintf($messages['no_input_dir'], $input);
     exit(1);
 }
 
@@ -81,10 +88,10 @@ foreach ($rii as $file) {
     }
 }
 if (!$hasMd) {
-    wlog(sprintf($messages['no_md_found']['str'], $input) . "\n", $messages['no_md_found']['lvl']);
+    echo Formatter::sprintf($messages['no_md_found'], $input);
     exit(1);
 }
 
 //+ CALL MD GEN
-$generator = new MarkdownDocGenerator($input, $output, $verbose, $messages);
+$generator = new MarkdownDocGenerator($input, $output, $verbose, $messages, $sort);
 $generator->run();
