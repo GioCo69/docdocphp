@@ -20,11 +20,10 @@ di quella documentazione.
 
 ## TODO
 
-- [x] la riga 93 (ora commentata) in MarkdownDocGenerator non gestisce correttamente il base path per il template
-- la formattazione della prima voce di menu che ha sottocartelle, rimane visivamente diversa dalle altre (uno schifo)
-- il base path del primo gruppo di voci corrisponde a <base href="../../../">
-- la TOC è un disastro, non contiene affatto i capitoli e i sottocapitoli del contenuto
-- è possibile che la ripetizione della voce Home sia rimasta nelle pagine diverse da quelle in home
+- la TOC è da rivedere (si è rotta)
+- è stata rifatta la gestione del log CLI (linea di comando) - da testare
+- GitHub non gestisce i secondo livello dei menu: li portaimo tutti "flat" 
+- da testare bene la gestione delle emoji
 
 ## Help
 ```bash
