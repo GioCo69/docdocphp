@@ -6,7 +6,7 @@ Supporta input ricorsivo, layout personalizzato, CLI con opzioni e log a colori.
 Pensato come estensione della documentazione generata da phpDocumentor con tema default
 Testato con phpDocumentor ver. 3.7
 
-==ATTENZIONE==
+⚠️ ATTENZIONE !
 Dato che il layout viene preso direttamente da quello della documentazione già generata
 da phpDocumentor i file HTML devono trovarsi in un sottodirettorio della cartella
 di quella documentazione
