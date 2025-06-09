@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor>
+    <title>Doc SEA Plugin</title>
+    <parser>
+        <extensions>
+            <extension>php</extension>
+        </extensions>
+    </parser>
+    <transformer>
+        <target>docs</target>
+    </transformer>
+    <files>
+        <directory>src</directory>
+        <file>src/index.md</file>
+    </files>
+    <logging>
+        <level>debug</level> <!-- Altri valori possibili: info, warning, error -->
+    </logging>
+    <transformations>
+        <template name="default" />
+    </transformations>
+</phpdocumentor>

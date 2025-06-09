@@ -1,0 +1,33 @@
+it: |
+  DocDoc - Generatore HTML da Markdown compatibile con phpDocumentor
+
+  USO:
+    ./bin/docdoc.php --input=DIR --output=DIR [--verbose] [--lang=it]
+
+  OPZIONI:
+    -i, --input       Cartella di input con file .md (default: tests)
+    -o, --output      Cartella di output per HTML (default: docs/output)
+    -v, --verbose     Attiva log dettagliato (debug)
+    -l, --lang        Lingua (it/en) (default: it)
+    -s, --sort        = asc|desc, Ordina le voci di menu (default: asc)
+    -h, --help        Mostra questo messaggio di aiuto
+
+  ESEMPIO:
+    ./bin/docdoc.php --input=docSEA.wiki --output=docs/docSEA.wiki --verbose --lang=it
+
+en: |
+  DocDoc - Markdown to HTML Generator with phpDocumentor-compatible layout
+
+  USAGE:
+    ./bin/docdoc.php --input=DIR --output=DIR [--verbose] [--lang=en]
+
+  OPTIONS:
+    -i, --input       Input directory with .md files (default: tests)
+    -o, --output      Output directory for HTML (default: docs/output)
+    -v, --verbose     Enable detailed log (debug)
+    -l, --lang        Language (it/en) (default: it)
+    -s, --sort        = asc|desc, Sort menu items (default: asc)
+    -h, --help        Show this help message
+
+  EXAMPLE:
+    ./bin/docdoc.php --input=docSEA.wiki --output=docs/docSEA.wiki --verbose --lang=en

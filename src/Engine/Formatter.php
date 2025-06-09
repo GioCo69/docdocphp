@@ -39,6 +39,31 @@ use InvalidArgumentException;
  */
 class Formatter extends Log {
 
+    /**
+     * Analizza e sostituisce i tag emoji all'interno di una stringa di messaggio.
+     *
+     * Questo metodo cerca all'interno della stringa tutti i tag racchiusi tra parentesi quadre,
+     * come ad esempio [info], [warning], [clean], e li sostituisce automaticamente con l'emoji
+     * corrispondente definita nell'array statico $emojis della classe Log.
+     * 
+     * La funzione utilizza una espressione regolare per individuare i tag e una callback per
+     * effettuare la sostituzione. Se il tag trovato corrisponde a una chiave valida nell'array
+     * delle emoji, viene sostituito con l'emoji relativa, eventualmente aggiungendo uno spazio
+     * extra se richiesto dalla configurazione (ad esempio per alcune emoji che necessitano di
+     * maggiore separazione visiva).
+     * 
+     * Se il tag non viene riconosciuto, viene lasciato invariato.
+     * 
+     * Esempio di utilizzo:
+     * <code>
+     * $messaggio = "[info] Operazione completata [clean]";
+     * echo Formatter::parseEmojiMessage($messaggio);
+     * // Output: "ℹ️ Operazione completata 🧹"
+     * </code>
+     *
+     * @param string $message La stringa di input contenente eventuali tag emoji.
+     * @return string La stringa risultante con i tag emoji sostituiti dalle relative emoji.
+     */
     public static function parseEmojiMessage(string $message): string {
         // Costruisce la regex dinamicamente in base alle chiavi
         $keys = array_keys(self::$emojis);
@@ -48,7 +73,8 @@ class Formatter extends Log {
         // Sostituisce ogni match con l’emoji corrispondente
         $message = preg_replace_callback($regex, function ($matches) {
             $key = trim($matches[1]);
-            return self::$emojis[$key] ?? $matches[0];
+            $s = (in_array($key, parent::$more_space) ? "  " : " "); 
+            return (parent::$emojis[$key] ?? $matches[0]) . $s;
         }, $message);
 
         return $message;
@@ -64,11 +90,11 @@ class Formatter extends Log {
      * 
      * **Vedi**: {@see \DocDoc\Engine\Log Helper Log Class}
      * 
-     * @param string|array $message
+     * @param string $message
      * @param mixed $level
      * @return void
      */
-    public static function message(string|array $message, ?string $level = 'info'): void {
+    public static function message(string $message, ?string $level = 'info'): void {
         $level = $level ?? 'info';
         $message = self::string_message($message, $level);
         echo self::parseEmojiMessage($message) . "\n";

@@ -1,0 +1,67 @@
+start:
+  it: "[INFO][folder] Inizio generazione da '%s' a '%s'"
+  en: "[INFO][folder] Starting generation from '%s' to '%s'"
+
+done:
+  it: "[SUCCESS] Generazione completata"
+  en: "[SUCCESS] Generation complete"
+
+home_detected:
+  it: "[INFO][file] Home.md rilevato, sostituisco menu dinamico..."
+  en: "[INFO][file] Home.md detected, replacing dynamic menu..."
+
+menu_generated:
+  it: "[INFO][file] Menu Markdown generato:\n%s"
+  en: "[INFO][file] Markdown menu generated:\n%s"
+
+menu_placeholder_missing:
+  it: '[WARNING] Placeholder <!-- $menu_auto$ --> non trovato in Home.md'
+  en: '[WARNING] Placeholder <!-- $menu_auto$ --> not found in Home.md'
+
+pandoc_invoked:
+  it: "[INFO] Invocazione Pandoc su: %s"
+  en: "[INFO] Pandoc invocation on: %s"
+
+toc_raw:
+  it: "[INFO][index] TOC HTML grezzo:\n%s..."
+  en: "[INFO][index] Raw TOC HTML:\n%s..."
+
+temp_created:
+  it: "[INFO][file] File temporaneo creato: %s"
+  en: "[INFO][file] Temp file created: %s"
+
+temp_removed:
+  it: "[INFO][clean] File temporaneo eliminato: %s"
+  en: "[INFO][clean] Temp file removed: %s"
+
+file_generated:
+  it: "[SUCCESS][return] Generato: %s"
+  en: "[SUCCESS][return] Generated: %s"
+
+scanning:
+  it: "[INFO][folder] Scanning: %s"
+  en: "[INFO][folder] Scanning: %s"
+
+dir_found:
+  it: "[INFO][folder] DIR trovata: %s"
+  en: "[INFO][folder] DIR found: %s"
+
+md_found:
+  it: "[INFO][file] FILE md trovato: %s"
+  en: "[INFO][file] Markdown file found: %s"
+
+dirs_sorted:
+  it: "[INFO][folder] Dir ordinati: %s"
+  en: "[INFO][folder] Sorted dirs: %s"
+
+files_sorted:
+  it: "[INFO][file] File ordinati: %s"
+  en: "[INFO][file] Sorted files: %s"
+
+link_generated:
+  it: "[INFO][link] Genero link: label='%s' → href='%s'"
+  en: "[INFO][link] Generating link: label='%s' → href='%s'"
+
+menu_added:
+  it: "[INFO][add] Aggiunto a topLevelMenu: label='%s', href='%s'"
+  en: "[INFO][add] Added to topLevelMenu: label='%s', href='%s'"

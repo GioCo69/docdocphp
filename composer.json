@@ -8,5 +8,7 @@
             "DocDoc\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "symfony/yaml": "^7.3"
+    }
 }

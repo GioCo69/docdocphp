@@ -18,7 +18,7 @@ di quella documentazione.
 ## Uso rapido
 
 ```bash
-./bin/docdoc.php --input=docSEA.wiki --output=docs/docSEA.wiki --verbose
+./bin/docdoc.php --input=mydoc.wiki --output=docs/mydoc.wiki --verbose -s asc
 ```
 
 ## TODO
@@ -30,21 +30,21 @@ di quella documentazione.
 
 ## Help
 ```bash
-DocDoc - Markdown to HTML Generator with phpDocumentor-compatible layout
+  DocDoc - Generatore HTML da Markdown compatibile con phpDocumentor
 
-USAGE:
-  ./bin/docdoc.php --input=DIR --output=DIR [--verbose] [--lang=en]
+  USO:
+    ./bin/docdoc.php --input=DIR --output=DIR [--verbose] [--lang=it]
 
-OPTIONS:
-  -i, --input       Input directory with .md files (default: tests)
-  -o, --output      Output directory for HTML (default: docs/output)
-  -v, --verbose     Enable detailed log (debug)
-  -l, --lang        Language (it/en) [default: it]
-  -h, --help        Show this help message
+  OPZIONI:
+    -i, --input       Cartella di input con file .md (default: tests)
+    -o, --output      Cartella di output per HTML (default: docs/output)
+    -v, --verbose     Attiva log dettagliato (debug)
+    -l, --lang        Lingua (it/en) (default: it)
+    -s, --sort        = asc|desc, Ordina le voci di menu (default: asc)
+    -h, --help        Mostra questo messaggio di aiuto
 
-EXAMPLE:
-  ./bin/docdoc.php --input=doc.wiki --output=docs/doc.wiki --verbose --lang=en
-
+  ESEMPIO:
+    ./bin/docdoc.php --input=docSEA.wiki --output=docs/docSEA.wiki --verbose --lang=it
 ```
 
 ## Requisiti
@@ -52,6 +52,7 @@ EXAMPLE:
 - PHP ≥ 7.4
 - pandoc installato e nel PATH
 - Composer
+- documentazione del tuo progetto generata con phpDocumentor 
 
 ## Setup
 
@@ -62,5 +63,5 @@ composer install
 ## 🧪 Test RUN
 
 ```bash
-composer install
+./bin/docdoc.php -h
 ```

@@ -63,11 +63,12 @@ if ($verbose) {
 }
 
 //-- LOAD MESSAGES SERVICE
-$messages = Lang::messages($lang);
+Lang::init($lang);
+$messages = Lang::messages();
 
 // --- HELP
 if (isset($options['h']) || isset($options['help'])) {
-    echo $messages['help'] . "\n";
+    echo $messages = Lang::messages(true) . "\n";
     exit(0);
 }
 
