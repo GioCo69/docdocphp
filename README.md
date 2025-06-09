@@ -23,10 +23,7 @@ di quella documentazione.
 
 ## TODO
 
-- la TOC è da rivedere (si è rotta)
-- è stata rifatta la gestione del log CLI (linea di comando) - da testare
-- GitHub non gestisce i secondo livello dei menu: li portaimo tutti "flat" 
-- da testare bene la gestione delle emoji
+- manca da rivedere la generazione del menu nel file Home.md, prende solo il primo livello
 
 ## Help
 ```bash
